@@ -6,7 +6,7 @@
 /*   By: supanuso <supanuso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 20:10:08 by supanuso          #+#    #+#             */
-/*   Updated: 2024/08/29 20:27:53 by supanuso         ###   ########.fr       */
+/*   Updated: 2024/08/30 21:51:13 by supanuso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,7 @@ char	*ft_strrchr(const char *s, int c)
 			save = (char *)s;
 		s++;
 	}
+	if (*s == ch)
+		return ((char *)s);
 	return (save);
 }

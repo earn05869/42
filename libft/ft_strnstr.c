@@ -1,23 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: supanuso <supanuso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/29 20:28:55 by supanuso          #+#    #+#             */
-/*   Updated: 2024/09/01 18:59:21 by supanuso         ###   ########.fr       */
+/*   Created: 2024/08/30 21:55:56 by supanuso          #+#    #+#             */
+/*   Updated: 2024/08/30 22:27:43 by supanuso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlen(const char *s)
+char	*ft_strnstr(const char *str, const char *sub, size_t len)
 {
 	size_t	i;
+	size_t	j;
 
 	i = 0;
-	while (s[i] != '\0')
+	j = 0;
+	if (!(*sub))
+		return ((char *)str);
+	while (str[i] && i < len)
+	{
+		while (str[i + j] == sub[j] && str[i + j] && i + j < len)
+		{
+			j++;
+			if (sub[j] == '\0')
+				return ((char *)str + i);
+		}
 		i++;
-	return (i);
+		j = 0;
+	}
+	return (NULL);
 }

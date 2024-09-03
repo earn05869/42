@@ -6,7 +6,7 @@
 /*   By: supanuso <supanuso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 19:30:40 by supanuso          #+#    #+#             */
-/*   Updated: 2024/08/29 20:09:00 by supanuso         ###   ########.fr       */
+/*   Updated: 2024/08/30 21:48:36 by supanuso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@ char	*ft_strchr(const char *s, int c)
 	while (*s)
 	{
 		if (*s == ch)
-			return ((char *)s);
+			return ((char *) s);
 		s++;
 	}
+	if (*s == c)
+		return ((char *)s);
 	return (NULL);
 }
