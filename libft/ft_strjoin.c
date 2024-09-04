@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: supanuso <supanuso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/29 19:20:33 by supanuso          #+#    #+#             */
-/*   Updated: 2024/09/04 19:08:59 by supanuso         ###   ########.fr       */
+/*   Created: 2024/09/04 17:48:19 by supanuso          #+#    #+#             */
+/*   Updated: 2024/09/04 18:00:23 by supanuso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
-#include <string.h>
 
-int	main(void)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	const char	str[] = "lorem ipsum dolor sit amet";
-	char	*sub;
-	sub = ft_strtrim(str, "te");
-	printf("%s\n", sub);
-	free (sub);
-}
+	char	*str;
+	size_t	s1_len;
+	size_t	s2_len;
 
+	s1_len = ft_strlen(s1);
+	s2_len = ft_strlen(s2);
+	if (!s1 || !s2)
+		return (NULL);
+	str = (char *)malloc((s1_len + s2_len +1) + sizeof(char));
+	if (!str)
+		return (NULL);
+	ft_strlcpy(str, s1, s1_len + 1);
+	ft_strlcat(str + s1_len, s2, s2_len + 1);
+	return (str);
+}
