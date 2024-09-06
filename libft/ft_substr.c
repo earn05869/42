@@ -26,9 +26,9 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 			len = str_len - start;
 		str = (char *)malloc((len + 1) * sizeof(char));
 		if (!str)
-			return (malloc(sizeof(char)));
+			return (NULL);
 		ft_strlcpy(str, s + start, len + 1);
 		return (str);
 	}
-	return (NULL);
+	return (ft_strdup(""));
 }

@@ -30,17 +30,24 @@ char	*ft_strtrim(char const *s1, char const *set)
 {
 	size_t	i;
 	size_t	j;
+	size_t	count;
 	char	*str;
 
-	if (!s1 || !set)
-		return (NULL);
-	i = 0;
 	j = ft_strlen(s1);
+	if (j == 0)
+		return (ft_strdup(""));
+	i = 0;
+	j -= 1;
 	while (s1[i] != '\0' && ft_toberemoved(s1[i], set))
 		i++;
-	while (j > 0 && ft_toberemoved(s1[j], set))
+	while (j > i && ft_toberemoved(s1[j], set))
 		j--;
-	str = (char *)malloc((j - i) * sizeof(char));
-	ft_strlcpy(str, s1 + i, j - i);
+	str = (char *)malloc((j - i + 2) * sizeof(char));
+	if (!str)
+		return (NULL);
+	count = 0;
+	while (i <= j)
+		str[count++] = s1[i++];
+	str[count] = '\0';
 	return (str);
 }
