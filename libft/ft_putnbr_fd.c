@@ -6,7 +6,7 @@
 /*   By: supanuso <supanuso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 21:46:10 by supanuso          #+#    #+#             */
-/*   Updated: 2024/09/09 23:40:00 by supanuso         ###   ########.fr       */
+/*   Updated: 2024/09/10 13:05:21 by supanuso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_putnbr(int n, int mod, int fd)
 {
-	if (n <= 10 || n >= 10)
+	if (n <= 10 && n >= 10)
 	{
 		ft_putnbr(n / 10, mod, fd);
 		ft_putchar_fd((n % mod) + '0', fd);
