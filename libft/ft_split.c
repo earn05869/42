@@ -6,7 +6,7 @@
 /*   By: supanuso <supanuso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 14:13:17 by supanuso          #+#    #+#             */
-/*   Updated: 2024/09/09 23:30:04 by supanuso         ###   ########.fr       */
+/*   Updated: 2024/09/10 14:31:52 by supanuso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_free_split(char **set_str)
 	size_t	i;
 
 	if (!set_str)
-		return;
+		return ;
 	i = 0;
 	while (set_str[i])
 	{
@@ -26,7 +26,6 @@ void	ft_free_split(char **set_str)
 	}
 	free(set_str);
 }
-
 
 size_t	ft_countsub(const char *s, char c)
 {
@@ -99,7 +98,6 @@ char	**ft_setsub(const char *s, size_t *pos, size_t sub)
 	set_str[j] = NULL;
 	return (set_str);
 }
-
 
 char	**ft_split(char const *s, char c)
 {

@@ -1,22 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: supanuso <supanuso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/29 19:20:33 by supanuso          #+#    #+#             */
-/*   Updated: 2024/09/10 14:27:02 by supanuso         ###   ########.fr       */
+/*   Created: 2024/09/10 16:05:48 by supanuso          #+#    #+#             */
+/*   Updated: 2024/09/10 16:08:52 by supanuso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
-#include <string.h>
 
-int main(void)
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	int num = -5;
-	ft_putnbr_fd(-2147483648 , 1);
-}
 
+}

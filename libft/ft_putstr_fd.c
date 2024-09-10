@@ -6,7 +6,7 @@
 /*   By: supanuso <supanuso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 21:29:18 by supanuso          #+#    #+#             */
-/*   Updated: 2024/09/09 21:44:14 by supanuso         ###   ########.fr       */
+/*   Updated: 2024/09/10 13:22:53 by supanuso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@ void	ft_putstr_fd(char *s, int fd)
 {
 	if (!s || fd < 0)
 		return ;
-	while (*s++)
+	while (*s)
+	{
 		write(fd, s, 1);
+		s++;
+	}
 }
