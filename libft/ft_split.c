@@ -6,16 +6,29 @@
 /*   By: supanuso <supanuso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 14:13:17 by supanuso          #+#    #+#             */
-/*   Updated: 2024/09/06 15:46:56 by supanuso         ###   ########.fr       */
+/*   Updated: 2024/09/09 23:30:04 by supanuso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "libft.h"
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
+#include "libft.h"
 
-size_t	ft_countsub(char *s, char c)
+void	ft_free_split(char **set_str)
+{
+	size_t	i;
+
+	if (!set_str)
+		return;
+	i = 0;
+	while (set_str[i])
+	{
+		free(set_str[i]);
+		i++;
+	}
+	free(set_str);
+}
+
+
+size_t	ft_countsub(const char *s, char c)
 {
 	size_t	i;
 	size_t	sub;
@@ -24,23 +37,17 @@ size_t	ft_countsub(char *s, char c)
 	sub = 0;
 	while (s[i] != '\0')
 	{
-		if (s[i] == c)
-		{
-			sub++;
+		while (s[i] == c)
 			i++;
-			if (s[i] == c)
-			{
-				while (s[i + 1] == c)
-					i++;
-				sub++;
-			}
-		}
-		i++;
+		if (s[i] != '\0')
+			sub++;
+		while (s[i] != '\0' && s[i] != c)
+			i++;
 	}
 	return (sub);
 }
 
-size_t	*ft_setpos(char *s, char c, size_t sub)
+size_t	*ft_setpos(const char *s, char c, size_t sub)
 {
 	size_t	*pos;
 	size_t	i;
@@ -48,83 +55,68 @@ size_t	*ft_setpos(char *s, char c, size_t sub)
 
 	i = 0;
 	j = 0;
-	pos = (size_t *)malloc(sub * sizeof(size_t));
+	pos = (size_t *)malloc(sub * 2 * sizeof(size_t));
 	if (!pos)
 		return (NULL);
 	while (s[i] != '\0')
 	{
-		if (s[i] == c)
-		{
-			pos[j++] = i++;
-			if (s[i] == c)
-			{
-				while (s[i + 1] == c)
-					i++;
-				pos[j++] = i;
-			}
-		}
-		i++;
+		while (s[i] == c)
+			i++;
+		if (s[i] != '\0')
+			pos[j++] = i;
+		while (s[i] != '\0' && s[i] != c)
+			i++;
+		pos[j++] = i;
 	}
 	return (pos);
 }
-// char	**ft_setsub(char **set_str, char *s, char c, size_t *pos)
-// {
-// 	size_t	i;
-// 	size_t	j;
-// 	size_t	set_len;
 
-// 	j = 0;
-// 	i = 0;
-// 	set_len = sizeof(pos) / sizeof(pos[0]);
-// 	while (j < set_len)
-// 	{
-// 		set_str[j] = (char *)malloc((j - i + 1) * sizeof(char));
-// 		if (!set_str[j])
-// 			return (NULL);
-// 		while (i < pos[j])
-// 		{
-// 			set_str[j] = s[i];
-// 			i++;
-// 		}
-// 		j++;
-// 	}
-// 	return (set_str);
-// }
-// char	**ft_split(char const *s, char c)
-// {
-// 	size_t	i;
-// 	size_t	sub;
-// 	char	**set_str;
-
-// 	i = 0;
-// 	if (ft_strlen(s) == 0)
-// 		return (NULL);
-// 	sub = ft_countsub(s, c);
-// 	while (s[i])
-// 	{
-// 		if (s[i] == c && s[i + 1] != c)
-// 			sub++;
-// 	}
-// 	set_str = (char **)malloc(sub * sizeof(char *));
-// 	if (!set_str)
-// 		return (NULL);
-// 	set_str = ft_setsub(set_str, s, c, ft_setpos(s, c, sub));
-// }
-
-
-int main(void)
+char	**ft_setsub(const char *s, size_t *pos, size_t sub)
 {
-	char str[] = ",234,,,123,,,345,567,,,,,,,,,,,,,,,,,,,,,,";
-	char c = ',';
-	size_t	count;
-	count = ft_countsub(str, c);
-	printf("count sub: %zu \nsub position: ", count);
-	size_t	loop;
-	size_t *pos = ft_setpos(str, c, count);
-	for(loop = 0; loop < count; loop++)
-		printf("%zu, ", pos[loop]);
-	printf("\n");
-	free(pos);
-	return (0);
+	size_t	j;
+	size_t	k;
+	char	**set_str;
+
+	set_str = (char **)malloc((sub + 1) * sizeof(char *));
+	if (!set_str)
+		return (NULL);
+	j = 0;
+	while (j < sub)
+	{
+		set_str[j] = (char *)malloc((pos[2 * j + 1] - pos[2 * j] + 1));
+		if (!set_str[j])
+		{
+			while (j > 0)
+				free(set_str[--j]);
+			free(set_str);
+			return (NULL);
+		}
+		k = 0;
+		while (pos[2 * j] < pos[2 * j + 1])
+			set_str[j][k++] = s[pos[2 * j]++];
+		set_str[j++][k] = '\0';
+	}
+	set_str[j] = NULL;
+	return (set_str);
 }
 
+
+char	**ft_split(char const *s, char c)
+{
+	size_t	sub;
+	size_t	*pos;
+	char	**set_str;
+
+	if (ft_strlen(s) == 0)
+	{
+		set_str = (char **)ft_calloc(1, sizeof(char *));
+		if (!set_str)
+			return (NULL);
+		return (set_str);
+	}
+	sub = ft_countsub(s, c);
+	pos = ft_setpos(s, c, sub);
+	set_str = ft_setsub(s, pos, sub);
+	free (pos);
+	return (set_str);
+}
